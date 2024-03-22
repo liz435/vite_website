@@ -4,7 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
-import { Effects } from './Effects.js';
+import { Effects } from './Effects.jsx';
 
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
 const shuffle = (accent = 0) => [
