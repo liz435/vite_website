@@ -1,10 +1,10 @@
 import * as THREE from 'three'
-import  React, { useRef, useReducer, useMemo } from 'react';
+import { useRef, useReducer, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
-import { Effects } from './Effects.tsx';
+import { Effects } from './Effects.js';
 
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
 const shuffle = (accent = 0) => [
