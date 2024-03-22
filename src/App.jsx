@@ -6,6 +6,7 @@ import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
 import { Effects } from './Effects.jsx';
 
+
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
 const shuffle = (accent = 0) => [
   { color: '#444', roughness: 0.1, metalness: 0.5 },
@@ -35,11 +36,11 @@ export default function App(props) {
   return (
     <>
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
-        <Canvas flat shadows onClick={click} dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [0, 0, 30], fov: 17.5, near: 10, far: 40 }} {...props}>
+        <Canvas flat shadows onClick={click} dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [0, 0, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141622']} />
           <OrbitControls />
           <TextMesh />
-          <Physics /*debug*/ timeStep="vary" gravity={[0, 1, 2]}>
+          <Physics /*debug*/ timeStep="vary" gravity={[1, 1, 2]}>
             <Pointer />
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
@@ -58,6 +59,14 @@ export default function App(props) {
         </Canvas>
 
         <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
+          <ul style={{listStyleType: "none"}}>
+          <li><p style={{ marginRight: '10px', marginBottom:'10px',marginTop: '15vh', fontSize:"30px" }}>This Introduce Nothing</p></li>
+          <li><button onClick={() => alert('Button 2 clicked')}>This Button Does Nothing 2</button></li>
+          </ul>
+        </div>
+ 
+
+        <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
           <ul>
           <li><button style={{ marginRight: '10px', marginBottom:'10px',marginTop: '60vh' }} onClick={() => alert('Button 1 clicked')}>This Button Does Nothing</button></li>
           <li><button onClick={() => alert('Button 2 clicked')}>This Button Does Nothing 2</button></li>
@@ -70,21 +79,23 @@ export default function App(props) {
   );
 }
 
+
 function TextMesh() {
   const { camera } = useThree();
-  const groupRef = useRef();
-
-  useFrame(() => {
-    groupRef.current.position.copy(camera.position);
-    groupRef.current.rotation.copy(camera.rotation);
-  });
 
   return (
-    <group ref={groupRef}>
-      <Text color="white" anchorX="center" anchorY="middle" fontSize={2} maxWidth={200}>
-        Hello, React Three Fiber!
-      </Text>
-    </group>
+    <group position={[0, 1, 5]}> 
+    <Text
+      color="white"
+      anchorX="center"
+      anchorY="middle"
+      fontSize={1}
+      maxWidth={200}
+      children="This Is Nothing Website"
+
+      onUpdate={self=>self.lookAt(camera.position)}
+    />
+     </group>
   );
 }
 

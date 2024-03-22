@@ -14,7 +14,7 @@ export function Effects() {
   useEffect(() => {
     const config = {
       importanceSampling: true,
-      steps: 20,
+      steps: 30,
       refineSteps: 4,
       spp: 1,
       resolutionScale: 1,
