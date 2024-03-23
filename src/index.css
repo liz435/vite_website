@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Garamond, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,6 +12,34 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+ul{
+  list-style-type: none;
+}
+
+.buttonList{
+  margin-top: 50vh;
+}
+
+.glow {
+  font-size: 40px;
+  color: rgba(21, 29, 75, 0.8);
+  text-align: left;
+  animation: glow 1s ease-in-out infinite alternate;
+  font-style: normal;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #866de2, 0 0 40px #32b5f1, 0 0 50px #10614f, 0 0 60px #278355, 0 0 70px #4b24b6;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #866de2, 0 0 50px #32b5f1, 0 0 60px #10614f, 0 0 70px #278355, 0 0 80px #4b24b6;
+  }
+}
+
+
 
 a {
   font-weight: 500;
@@ -45,18 +73,24 @@ h1:hover {
 
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 20px;
+  padding: 10px 30px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(36, 69, 129, 0.2) 50%, rgba(35, 33, 48, 0.5) 100%);
+  border: 1px solid rgba(40, 20, 126, 0.3);
+  box-shadow: 0 4px 6px rgba(142, 142, 173, 0.11), 0 1px 3px rgba(150, 164, 185, 0.08);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: transform 0.2s ease;
+  animation: glow 1s ease-in-out infinite alternate;
 }
 button:hover {
   border-color: #646cff;
+  transform: translateY(-2px);
+  animation: none
 }
 button:focus,
 button:focus-visible {

@@ -1,10 +1,11 @@
 import * as THREE from 'three'
-import { useRef, useReducer, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
+import { useRef, useState, useEffect, useReducer, useMemo } from 'react';
+import { Canvas,  useFrame, useThree } from '@react-three/fiber';
+import { Stats, OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
 import { Effects } from './Effects.jsx';
+import './index.css';
 
 
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
@@ -29,18 +30,31 @@ const shuffle = (accent = 0) => [
   { color: accents[accent], roughness: 0.1, accent: true }
 ];
 
+const rotations = {
+  front: new THREE.Euler(0, 0, 0),
+  left: new THREE.Euler(0, Math.PI / 11, 0),
+  right: new THREE.Euler(0, -Math.PI / 8, 0),
+  back: new THREE.Euler(Math.PI/10,0,0),
+};
+
 export default function App(props) {
   const [accent, click] = useReducer((state) => ++state % accents.length, 0);
   const connectors = useMemo(() => shuffle(accent), [accent]);
+  const [targetRotation, setTargetRotation] = useState(rotations.front);
+
+  const handleButtonClick = (rotationKey) => {
+    setTargetRotation(rotations[rotationKey]);
+  };
+
 
   return (
     <>
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
         <Canvas flat shadows onClick={click} dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [0, 0, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141622']} />
-          <OrbitControls />
+          {/* <OrbitControls /> */}
           <TextMesh />
-          <Physics /*debug*/ timeStep="vary" gravity={[1, 1, 2]}>
+          <Physics /*debug*/ timeStep="vary" gravity={[7, 2, 0]}>
             <Pointer />
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
@@ -56,22 +70,27 @@ export default function App(props) {
             </group>
           </Environment>
           <Effects />
+          <Stats showPanel={0} className="stats" {...props} />
+          <CameraRotator targetRotation={targetRotation} enabled={true} />
+
         </Canvas>
 
         <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
           <ul style={{listStyleType: "none"}}>
-          <li><p style={{ marginRight: '10px', marginBottom:'10px',marginTop: '15vh', fontSize:"30px" }}>This Introduce Nothing</p></li>
-          <li><button onClick={() => alert('Button 2 clicked')}>This Button Does Nothing 2</button></li>
+          <h1><p className="glow" style={{ marginLeft: '10px', marginBottom:'10px',marginTop: '20px' }}>Zelong Li</p></h1>
           </ul>
         </div>
  
 
-        <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
+        <div className='buttonList' style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
           <ul>
-          <li><button style={{ marginRight: '10px', marginBottom:'10px',marginTop: '60vh' }} onClick={() => alert('Button 1 clicked')}>This Button Does Nothing</button></li>
-          <li><button onClick={() => alert('Button 2 clicked')}>This Button Does Nothing 2</button></li>
-          </ul>
+        <li><button onClick={() => handleButtonClick('back')}>Introduction</button></li>
+        <li><button onClick={() => handleButtonClick('left')}>Portfolio</button></li>
+        <li><button onClick={() => handleButtonClick('right')}>Right</button></li>
+        <li><button onClick={() => handleButtonClick('front')}>Home</button></li>
+        </ul>
         </div>
+
       </div>
       <div style={{ position: "absolute", zIndex: "1" }}>
       </div>
@@ -79,10 +98,43 @@ export default function App(props) {
   );
 }
 
+function easeOutCubic(x) {
+  return 1 - Math.pow(1 - x, 2);
+}
+
+
+function CameraRotator({ targetRotation, rotationRequestID }) {
+  const { camera } = useThree();
+  const [currentRequestID, setCurrentRequestID] = useState(null);
+  const duration = 120000; // Example duration
+  
+  useFrame((state) => {
+    if (rotationRequestID !== currentRequestID) {
+      const currentTime = state.clock.getElapsedTime() * 1000; 
+      const elapsedTime = currentTime % duration; // Reset every duration
+      const progress = elapsedTime / duration;
+      const easedProgress = easeOutCubic(progress);
+
+      const interpolatedY = THREE.MathUtils.lerp(camera.rotation.y, targetRotation.y, easedProgress);
+      const interpolatedX = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.x, easedProgress);
+      camera.rotation.y = interpolatedY;
+      camera.rotation.x = interpolatedX;
+      camera.updateProjectionMatrix();
+
+      if (progress >= 1) {
+        setCurrentRequestID(rotationRequestID); // Update to acknowledge the handled request
+      }
+    }
+  });
+
+  return null;
+}
+
+
+
+
 
 function TextMesh() {
-  const { camera } = useThree();
-
   return (
     <group position={[0, 1, 5]}> 
     <Text
@@ -91,9 +143,7 @@ function TextMesh() {
       anchorY="middle"
       fontSize={1}
       maxWidth={200}
-      children="This Is Nothing Website"
-
-      onUpdate={self=>self.lookAt(camera.position)}
+      children="Something      Hidden"
     />
      </group>
   );
