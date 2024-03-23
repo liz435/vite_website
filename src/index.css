@@ -76,9 +76,10 @@ button {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 20px;
   padding: 10px 30px;
-  border-radius: 10px;
+  border-radius: 25px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(36, 69, 129, 0.2) 50%, rgba(35, 33, 48, 0.5) 100%);
   border: 1px solid rgba(40, 20, 126, 0.3);
+
   box-shadow: 0 4px 6px rgba(142, 142, 173, 0.11), 0 1px 3px rgba(150, 164, 185, 0.08);
   backdrop-filter: blur(10px);
   color: white;
@@ -89,8 +90,8 @@ button {
 }
 button:hover {
   border-color: #646cff;
-  transform: translateY(-2px);
-  animation: none
+  transform: translateY(-4px);
+  animation: glow 1s ease-in-out infinite alternate; ;
 }
 button:focus,
 button:focus-visible {

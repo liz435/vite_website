@@ -32,7 +32,7 @@ const shuffle = (accent = 0) => [
 
 const rotations = {
   front: new THREE.Euler(0, 0, 0),
-  left: new THREE.Euler(0, Math.PI / 11, 0),
+  left: new THREE.Euler(0, Math.PI / 14, 0),
   right: new THREE.Euler(0, -Math.PI / 8, 0),
   back: new THREE.Euler(Math.PI/10,0,0),
 };
@@ -42,9 +42,22 @@ export default function App(props) {
   const connectors = useMemo(() => shuffle(accent), [accent]);
   const [targetRotation, setTargetRotation] = useState(rotations.front);
   const [currentRotation, setCurrentRotation] = useState(new THREE.Euler(0, 0, 0));
+  const [currentDirection, setCurrentDirection] = useState(null);
 
+  const handleDirectionChange = (direction) => {
+    setCurrentDirection(direction);
+  };
+
+  
+
+
+  // const handleButtonClick = (rotationKey) => {
+  //   setTargetRotation(rotations[rotationKey]);
+  // };  
+  
   const handleButtonClick = (rotationKey) => {
     setTargetRotation(rotations[rotationKey]);
+    setCurrentDirection(rotationKey);
   };
 
 
@@ -55,6 +68,7 @@ export default function App(props) {
           <color attach="background" args={['#141622']} />
           {/* <OrbitControls /> */}
           <TextMesh />
+   
           <Physics /*debug*/ timeStep="vary" gravity={[4.5, 1, 0]}>
             <Pointer />
             {connectors.map((props, i) => (
@@ -76,22 +90,25 @@ export default function App(props) {
 
         </Canvas>
 
-        <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
+
+        <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 3,  }}>
           <ul style={{listStyleType: "none"}}>
           <h1><p className="glow" style={{ marginLeft: '10px', marginBottom:'10px',marginTop: '20px' }}>Zelong Li</p></h1>
           </ul>
         </div>
- 
 
-        <div className='buttonList' style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
+    
+        
+
+        <div className='buttonList' style={{ position: 'absolute', top: 20, left: 20, zIndex: 3,  }}>
           <ul>
         <li><button onClick={() => handleButtonClick('back')}>Bio</button></li>
-        <li><button onClick={() => handleButtonClick('left')}>Portfolio</button></li>
-        <li><button onClick={() => handleButtonClick('right')}>Contact</button></li>
+        <li><button onClick={() => handleButtonClick('right')}>Portfolio</button></li>
+        <li><button onClick={() => handleButtonClick('left')}>Contact</button></li>
         <li><button onClick={() => handleButtonClick('front')}>Home</button></li>
         </ul>
         </div>
-
+            
       </div>
       <div style={{ position: "absolute", zIndex: "1" }}>
       </div>
@@ -99,26 +116,29 @@ export default function App(props) {
   );
 }
 
-function easeOutCubic(x) {
-  return 1 - Math.pow(1 - x, 2);
+
+function Sth(){
+console.log("here")
+return(
+  <h1>
+    fjoi2dn2o
+  </h1>
+)
 }
 
-
-function CameraRotator({ targetRotation, setCurrentRotation }) {
+function CameraRotator({ targetRotation }) {
   const { camera } = useThree();
-  const [currentRequestID, setCurrentRequestID] = useState(null);
-  const duration = 2000; // Example duration
-  
-  useFrame(() => {
-    camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.05;
-    camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.05;
-    camera.rotation.z += (targetRotation.z - camera.rotation.z) * 0.05;
-    setCurrentRotation(camera.rotation.clone());
+
+  useFrame((state, delta) => {
+    const lerpFactor = 1 - Math.pow(0.01, delta); // Adjust this factor for smoothness
+
+    camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.x, lerpFactor);
+    camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, targetRotation.y, lerpFactor);
+    camera.rotation.z = THREE.MathUtils.lerp(camera.rotation.z, targetRotation.z, lerpFactor);
   });
 
   return null;
 }
-
 
 
 

@@ -5,7 +5,6 @@ import { SSGIEffect, VelocityDepthNormalPass } from './realism-effects/v2'
 
 export function Effects() {
   const gl = useThree((state) => state.gl)
-  console.log(gl.info)
   const scene = useThree((state) => state.scene)
   const camera = useThree((state) => state.camera)
   const size = useThree((state) => state.size)
@@ -14,7 +13,7 @@ export function Effects() {
   useEffect(() => composer.setSize(size.width, size.height), [composer, size])
   useEffect(() => {
     const config = {
-      resolutionScale: 0.6 ,
+      resolutionScale: 0.1 ,
       importanceSampling: true,
       steps: 20,
       refineSteps: 4,
