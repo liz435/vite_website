@@ -5,6 +5,7 @@ import { Stats, OrbitControls, Text, Environment, Lightformer } from '@react-thr
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
 import { Effects } from './Effects.jsx';
+import { useSpring, animated } from '@react-spring/three';
 import './index.css';
 
 
@@ -151,26 +152,34 @@ function Bio(){
 }
 
 
-function ClickableSphere({ position, onClick }) {
+function ClickableSphere({ position, url }) {
+  const [hovered, setHovered] = useState(false);
 
-  const [scale, setScale] = useState(1);
+  const { scale } = useSpring({
+    scale: hovered ? [1.2, 1.2, 1.2] : [1, 1, 1],
+    config: { mass: 1, tension: 170, friction: 26 },
+  });
+
 
   const handleClick = () => {
- 
-    setScale(currentScale => currentScale * 1.2);
+    window.location.href = url; 
   };
 
   return (
-    <mesh
+    <animated.mesh
       position={position}
       onClick={handleClick}
-      scale={[scale, scale, scale]}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+      scale={scale} // Apply animated scale
     >
       <sphereGeometry args={[0.5, 32, 32]} />
       <meshStandardMaterial color="skyblue" />
-    </mesh>
+    </animated.mesh>
   );
 }
+
+
 
 
 
@@ -183,24 +192,29 @@ function PortfolioLanding() {
     return () => clearTimeout(timer);
   }, []);
 
-
-  const spherePositions = [
-    [10, 3, 0], [15, 3.1, 0], [21, 3.2, 0], 
-    [10, -2, 0], [15, -2.1, 0], [21, -2.2, 0]
+  // Define positions for the spheres and their respective URLs
+  const spheresData = [
+    { position: [10, 3, 0], url: "https://example.com/page1" },
+    { position: [15, 3.1, 0], url: "https://example.com/page2" },
+    { position: [21, 3.2, 0], url: "https://example.com/page3" },
+    { position: [10, -2, 0], url: "https://example.com/page4" },
+    { position: [15, -2.1, 0], url: "https://example.com/page5" },
+    { position: [21, -2.2, 0], url: "https://example.com/page6" },
   ];
 
   return (
     <group position={[0, 1, -5]}>
-      {isVisible && spherePositions.map((position, index) => (
+      {isVisible && spheresData.map((sphere, index) => (
         <ClickableSphere
           key={index}
-          position={position}
-          // No need to pass onClick if it's only used for scaling within ClickableSphere
+          position={sphere.position}
+          url={sphere.url}
         />
       ))}
     </group>
   );
 }
+
 
 
 
