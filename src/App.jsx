@@ -152,12 +152,11 @@ function Bio(){
 
 
 function ClickableSphere({ position, onClick }) {
-  // Each sphere now has its own scale state
+
   const [scale, setScale] = useState(1);
 
   const handleClick = () => {
-    // Call the onClick prop if provided
-    // Update this sphere's scale
+ 
     setScale(currentScale => currentScale * 1.2);
   };
 
@@ -180,14 +179,14 @@ function PortfolioLanding() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 600); // Delay for the fade-in effect
+    const timer = setTimeout(() => setIsVisible(true), 600);
     return () => clearTimeout(timer);
   }, []);
 
-  // Define positions for the spheres in a 2-row layout
+
   const spherePositions = [
-    [10, 3, 0], [15, 3.1, 0], [21, 3.2, 0], // First row
-    [10, -2, 0], [15, -2.1, 0], [21, -2.2, 0] // Second row
+    [10, 3, 0], [15, 3.1, 0], [21, 3.2, 0], 
+    [10, -2, 0], [15, -2.1, 0], [21, -2.2, 0]
   ];
 
   return (
@@ -251,7 +250,7 @@ function CameraRotator({ targetRotation }) {
   const { camera } = useThree();
 
   useFrame((state, delta) => {
-    const lerpFactor = 1 - Math.pow(0.01, delta); // Adjust this factor for smoothness
+    const lerpFactor = 1 - Math.pow(0.01, delta); 
 
     camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.x, lerpFactor);
     camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, targetRotation.y, lerpFactor);
