@@ -41,6 +41,7 @@ export default function App(props) {
   const [accent, click] = useReducer((state) => ++state % accents.length, 0);
   const connectors = useMemo(() => shuffle(accent), [accent]);
   const [targetRotation, setTargetRotation] = useState(rotations.front);
+  const [currentRotation, setCurrentRotation] = useState(new THREE.Euler(0, 0, 0));
 
   const handleButtonClick = (rotationKey) => {
     setTargetRotation(rotations[rotationKey]);
@@ -50,11 +51,11 @@ export default function App(props) {
   return (
     <>
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
-        <Canvas flat shadows onClick={click} dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [0, 0, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
+        <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio*0.8} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141622']} />
           {/* <OrbitControls /> */}
           <TextMesh />
-          <Physics /*debug*/ timeStep="vary" gravity={[7, 2, 0]}>
+          <Physics /*debug*/ timeStep="vary" gravity={[4.5, 1, 0]}>
             <Pointer />
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
@@ -71,7 +72,7 @@ export default function App(props) {
           </Environment>
           <Effects />
           <Stats showPanel={0} className="stats" {...props} />
-          <CameraRotator targetRotation={targetRotation} enabled={true} />
+          <CameraRotator targetRotation={targetRotation} setCurrentRotation={setCurrentRotation} />
 
         </Canvas>
 
@@ -84,9 +85,9 @@ export default function App(props) {
 
         <div className='buttonList' style={{ position: 'absolute', top: 20, left: 20, zIndex: 10,  }}>
           <ul>
-        <li><button onClick={() => handleButtonClick('back')}>Introduction</button></li>
+        <li><button onClick={() => handleButtonClick('back')}>Bio</button></li>
         <li><button onClick={() => handleButtonClick('left')}>Portfolio</button></li>
-        <li><button onClick={() => handleButtonClick('right')}>Right</button></li>
+        <li><button onClick={() => handleButtonClick('right')}>Contact</button></li>
         <li><button onClick={() => handleButtonClick('front')}>Home</button></li>
         </ul>
         </div>
@@ -103,28 +104,16 @@ function easeOutCubic(x) {
 }
 
 
-function CameraRotator({ targetRotation, rotationRequestID }) {
+function CameraRotator({ targetRotation, setCurrentRotation }) {
   const { camera } = useThree();
   const [currentRequestID, setCurrentRequestID] = useState(null);
-  const duration = 120000; // Example duration
+  const duration = 2000; // Example duration
   
-  useFrame((state) => {
-    if (rotationRequestID !== currentRequestID) {
-      const currentTime = state.clock.getElapsedTime() * 1000; 
-      const elapsedTime = currentTime % duration; // Reset every duration
-      const progress = elapsedTime / duration;
-      const easedProgress = easeOutCubic(progress);
-
-      const interpolatedY = THREE.MathUtils.lerp(camera.rotation.y, targetRotation.y, easedProgress);
-      const interpolatedX = THREE.MathUtils.lerp(camera.rotation.x, targetRotation.x, easedProgress);
-      camera.rotation.y = interpolatedY;
-      camera.rotation.x = interpolatedX;
-      camera.updateProjectionMatrix();
-
-      if (progress >= 1) {
-        setCurrentRequestID(rotationRequestID); // Update to acknowledge the handled request
-      }
-    }
+  useFrame(() => {
+    camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.05;
+    camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.05;
+    camera.rotation.z += (targetRotation.z - camera.rotation.z) * 0.05;
+    setCurrentRotation(camera.rotation.clone());
   });
 
   return null;

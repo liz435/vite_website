@@ -5,6 +5,7 @@ import { SSGIEffect, VelocityDepthNormalPass } from './realism-effects/v2'
 
 export function Effects() {
   const gl = useThree((state) => state.gl)
+  console.log(gl.info)
   const scene = useThree((state) => state.scene)
   const camera = useThree((state) => state.camera)
   const size = useThree((state) => state.size)
@@ -13,11 +14,11 @@ export function Effects() {
   useEffect(() => composer.setSize(size.width, size.height), [composer, size])
   useEffect(() => {
     const config = {
+      resolutionScale: 0.3,
       importanceSampling: true,
-      steps: 30,
+      steps: 20,
       refineSteps: 4,
       spp: 1,
-      resolutionScale: 1,
       missedRays: false,
       distance: 5.980000000000011,
       thickness: 2.829999999999997,
@@ -40,7 +41,7 @@ export function Effects() {
     composer.addPass(renderPass)
     composer.addPass(velocityDepthNormalPass)
     composer.addPass(new EffectPass(camera, new SSGIEffect(composer, scene, camera, { ...config, velocityDepthNormalPass })))
-    composer.addPass(new EffectPass(camera, new BloomEffect({ mipmapBlur: true, luminanceThreshold: 0.1, intensity: 0.9, levels: 7 })))
+    composer.addPass(new EffectPass(camera, new BloomEffect({ mipmapBlur: true, luminanceThreshold: 0.1, intensity: 0.6, levels: 4 })))
     composer.addPass(new EffectPass(camera, new FXAAEffect(), new ToneMappingEffect()))
 
     return () => {

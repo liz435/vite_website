@@ -18,16 +18,16 @@ ul{
 }
 
 .buttonList{
-  margin-top: 50vh;
+  margin-top: 60vh;
 }
 
-.glow {
+/* .glow {
   font-size: 40px;
   color: rgba(21, 29, 75, 0.8);
   text-align: left;
   animation: glow 1s ease-in-out infinite alternate;
   font-style: normal;
-}
+} */
 
 @-webkit-keyframes glow {
   from {
@@ -85,7 +85,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s ease;
-  animation: glow 1s ease-in-out infinite alternate;
+  /* animation: glow 1s ease-in-out infinite alternate; */
 }
 button:hover {
   border-color: #646cff;
