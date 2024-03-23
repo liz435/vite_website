@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useRef, useState, useEffect, useReducer, useMemo } from 'react';
+import React ,{ useRef, useState, useEffect, useReducer, useMemo } from 'react';
 import { Canvas,  useFrame, useThree } from '@react-three/fiber';
 import { Stats, OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
@@ -32,9 +32,9 @@ const shuffle = (accent = 0) => [
 
 const rotations = {
   front: new THREE.Euler(0, 0, 0),
-  left: new THREE.Euler(0, Math.PI / 14, 0),
+  left: new THREE.Euler(-Math.PI/30, Math.PI / 14, Math.PI/30),
   right: new THREE.Euler(0, -Math.PI / 8, 0),
-  back: new THREE.Euler(Math.PI/10,0,0),
+  top: new THREE.Euler(Math.PI/10,0,0),
 };
 
 export default function App(props) {
@@ -68,8 +68,8 @@ export default function App(props) {
           <color attach="background" args={['#141622']} />
           {/* <OrbitControls /> */}
           <TextMesh />
-   
-          <Physics /*debug*/ timeStep="vary" gravity={[4.5, 1, 0]}>
+          {currentDirection === 'left' && <CanvasRenderedText />}
+          <Physics /*debug*/ timeStep="vary" gravity={[6, 1, 0]}>
             <Pointer />
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
@@ -84,6 +84,7 @@ export default function App(props) {
               <Lightformer form="ring" color="#4060ff" intensity={80} onUpdate={(self) => self.lookAt(0, 0, 0)} position={[10, 10, 0]} scale={10} />
             </group>
           </Environment>
+          {currentDirection === 'right' && <PortfolioLanding />}
           <Effects />
           <Stats showPanel={0} className="stats" {...props} />
           <CameraRotator targetRotation={targetRotation} setCurrentRotation={setCurrentRotation} />
@@ -95,20 +96,24 @@ export default function App(props) {
           <ul style={{listStyleType: "none"}}>
           <h1><p className="glow" style={{ marginLeft: '10px', marginBottom:'10px',marginTop: '20px' }}>Zelong Li</p></h1>
           </ul>
+          
         </div>
 
-    
-        
+        <div  className="bio-container"  style={{ position: 'absolute', top: 20, left: 20, zIndex: 3,  }}>
+          {currentDirection === 'top' && <Bio />}
+        </div>
+
+
 
         <div className='buttonList' style={{ position: 'absolute', top: 20, left: 20, zIndex: 3,  }}>
-          <ul>
-        <li><button onClick={() => handleButtonClick('back')}>Bio</button></li>
+        <ul>
+        <li><button onClick={() => handleButtonClick('top')}>Bio</button></li>
         <li><button onClick={() => handleButtonClick('right')}>Portfolio</button></li>
         <li><button onClick={() => handleButtonClick('left')}>Contact</button></li>
         <li><button onClick={() => handleButtonClick('front')}>Home</button></li>
         </ul>
         </div>
-            
+                
       </div>
       <div style={{ position: "absolute", zIndex: "1" }}>
       </div>
@@ -116,13 +121,129 @@ export default function App(props) {
   );
 }
 
+function Bio(){
+  const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 600); 
+  
+      return () => clearTimeout(timer);
+    }, []);
 
-function Sth(){
-console.log("here")
+  return(
+    <>
+    {isVisible && (
+      <div>
+    <h1 className='bio-title'>
+      Bio Placeholder
+    </h1>
+    <p className='bio-p'>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing elit pellentesque habitant morbi. Commodo viverra maecenas accumsan lacus vel. Tellus pellentesque eu tincidunt tortor aliquam. Ornare lectus sit amet est placerat in egestas erat imperdiet. Tortor id aliquet lectus proin nibh nisl condimentum id. Suscipit adipiscing bibendum est ultricies integer. In cursus turpis massa tincidunt. Eu turpis egestas pretium aenean pharetra magna ac placerat. Purus in mollis nunc sed id semper. Enim blandit volutpat maecenas volutpat blandit aliquam. Gravida quis blandit turpis cursus in hac. Sit amet porttitor eget dolor morbi. Rhoncus dolor purus non enim.
+   </p>
+   <p className='bio-p'>
+   Urna id volutpat lacus laoreet non curabitur gravida arcu ac. Montes nascetur ridiculus mus mauris vitae ultricies leo integer. Rhoncus aenean vel elit scelerisque mauris. Habitant morbi tristique senectus et netus et malesuada fames ac. Tellus molestie nunc non blandit massa enim nec dui nunc. Libero id faucibus nisl tincidunt eget nullam non nisi. Tincidunt tortor aliquam nulla facilisi. Ut faucibus pulvinar elementum integer enim. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend. Amet consectetur adipiscing elit duis tristique sollicitudin nibh sit amet. Neque gravida in fermentum et sollicitudin ac orci phasellus egestas. Dis parturient montes nascetur ridiculus mus mauris vitae. Facilisis volutpat est velit egestas dui id ornare arcu odio.
+   </p>
+   </div>
+   )}
+    </>
+  )
+}
+
+
+function ClickableSphere({ position, onClick }) {
+  // Each sphere now has its own scale state
+  const [scale, setScale] = useState(1);
+
+  const handleClick = () => {
+    // Call the onClick prop if provided
+    // Update this sphere's scale
+    setScale(currentScale => currentScale * 1.2);
+  };
+
+  return (
+    <mesh
+      position={position}
+      onClick={handleClick}
+      scale={[scale, scale, scale]}
+    >
+      <sphereGeometry args={[0.5, 32, 32]} />
+      <meshStandardMaterial color="skyblue" />
+    </mesh>
+  );
+}
+
+
+
+
+function PortfolioLanding() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 600); // Delay for the fade-in effect
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Define positions for the spheres in a 2-row layout
+  const spherePositions = [
+    [10, 3, 0], [15, 3.1, 0], [21, 3.2, 0], // First row
+    [10, -2, 0], [15, -2.1, 0], [21, -2.2, 0] // Second row
+  ];
+
+  return (
+    <group position={[0, 1, -5]}>
+      {isVisible && spherePositions.map((position, index) => (
+        <ClickableSphere
+          key={index}
+          position={position}
+          // No need to pass onClick if it's only used for scaling within ClickableSphere
+        />
+      ))}
+    </group>
+  );
+}
+
+
+
+function CanvasRenderedText(){
 return(
-  <h1>
-    fjoi2dn2o
-  </h1>
+<>
+<group position={[-7, 1, 5]}>
+<Text
+  color="white"
+  anchorX="center"
+  anchorY="middle"
+  fontSize={1}
+  maxWidth={200}
+  children="Say"
+/>
+</group>
+
+<group position={[-6, -2.5, 5]}>
+<Text
+  color="white"
+  anchorX="center"
+  anchorY="middle"
+  fontSize={1}
+  maxWidth={100}
+  children="longzeely@gmail.com"
+/>
+</group>
+
+{/* <group position={[-6, -3, 5]}>
+<Text
+  color="white"
+  anchorX="center"
+  anchorY="middle"
+  fontSize={1}
+  maxWidth={100}
+  children="instagram@longzeely"
+/>
+</group> */}
+
+</>
+
+
 )
 }
 
@@ -140,9 +261,6 @@ function CameraRotator({ targetRotation }) {
   return null;
 }
 
-
-
-
 function TextMesh() {
   return (
     <group position={[0, 1, 5]}> 
@@ -152,7 +270,7 @@ function TextMesh() {
       anchorY="middle"
       fontSize={1}
       maxWidth={200}
-      children="Something      Hidden"
+      children="Something      Hidden "
     />
      </group>
   );

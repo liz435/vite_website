@@ -13,7 +13,7 @@ export function Effects() {
   useEffect(() => composer.setSize(size.width, size.height), [composer, size])
   useEffect(() => {
     const config = {
-      resolutionScale: 0.1 ,
+      resolutionScale: 0.5 ,
       importanceSampling: true,
       steps: 20,
       refineSteps: 4,

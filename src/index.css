@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Garamond, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -21,13 +21,18 @@ ul{
   margin-top: 60vh;
 }
 
-/* .glow {
+.glow {
   font-size: 40px;
-  color: rgba(21, 29, 75, 0.8);
+  /* color: rgba(21, 29, 75, 0.8); */
+  color: #cccaca;
   text-align: left;
-  animation: glow 1s ease-in-out infinite alternate;
+  text-shadow:0 0 20px #f9f9f9;
+  /* animation: glow 1s ease-in-out infinite alternate; */
   font-style: normal;
-} */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 
 @-webkit-keyframes glow {
   from {
@@ -58,22 +63,40 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  font-style: italic;
+.bio-container{
+  width: 60vw;
+  position: absolute;
+  z-index: 10;
+  margin-top: 10vh;
+  margin-left: 20vw;
 }
 
-h1:hover {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color:#646cff
+.bio-title{
+  animation: fadeIn 2s ease-out forwards;
+  text-shadow:0 0 20px #f9f9f9;
+
 }
+
+.bio-p{
+  animation: fadeIn 2s ease-out forwards;
+  text-shadow:0 0 20px #f9f9f9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
 
 
 
 button {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   margin-top: 20px;
   padding: 10px 30px;
   border-radius: 25px;
@@ -91,7 +114,7 @@ button {
 button:hover {
   border-color: #646cff;
   transform: translateY(-4px);
-  animation: glow 1s ease-in-out infinite alternate; ;
+  text-shadow:0 0 20px #f9f9f9;
 }
 button:focus,
 button:focus-visible {
