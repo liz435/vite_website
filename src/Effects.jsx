@@ -39,9 +39,9 @@ export function Effects() {
     const velocityDepthNormalPass = new VelocityDepthNormalPass(scene, camera)
     composer.addPass(renderPass)
     composer.addPass(velocityDepthNormalPass)
-    composer.addPass(new EffectPass(camera, new SSGIEffect(composer, scene, camera, { ...config, velocityDepthNormalPass })))
-    composer.addPass(new EffectPass(camera, new BloomEffect({ mipmapBlur: true, luminanceThreshold: 0.1, intensity: 0.6, levels: 4 })))
-    composer.addPass(new EffectPass(camera, new FXAAEffect(), new ToneMappingEffect()))
+    composer.addPass(new EffectPass(camera, new FXAAEffect(composer, scene, camera, { ...config, velocityDepthNormalPass })))
+    // composer.addPass(new EffectPass(camera, new BloomEffect({ mipmapBlur: true, luminanceThreshold: 0.1, intensity: 0.6, levels: 4 })))
+    // composer.addPass(new EffectPass(camera, new FXAAEffect(), new ToneMappingEffect()))
 
     return () => {
       composer.removeAllPasses()

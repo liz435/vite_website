@@ -1,5 +1,5 @@
 :root {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -13,25 +13,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul{
-  list-style-type: none;
-}
-
-.buttonList{
-  margin-top: 60vh;
-}
-
 .glow {
-  font-size: 40px;
-  /* color: rgba(21, 29, 75, 0.8); */
-  color: #cccaca;
-  text-align: left;
-  text-shadow:0 0 20px #f9f9f9;
+  margin-top: 23vh;
+  margin-left: 23vw;
+  position: absolute;
+  font-family: Inter, sans-serif;
+  font-size: 80px;
+
   /* animation: glow 1s ease-in-out infinite alternate; */
   font-style: normal;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+  animation: fadeIn 4s ease-out forwards;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    rgba(227, 223, 223, 0.7), /* Red, 50% opacity */
+    rgba(198, 207, 198, 0.7) /* Green, 50% opacity */
+  );
+
+  border: #313131;
 }
 
 @-webkit-keyframes glow {
@@ -44,16 +48,6 @@ ul{
   }
 }
 
-
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
 body {
   margin: 0;
@@ -72,12 +66,14 @@ body {
 }
 
 .bio-title{
+  font-family: Inter, sans-serif;
   animation: fadeIn 2s ease-out forwards;
   text-shadow:0 0 20px #f9f9f9;
 
 }
 
 .bio-p{
+  font-family: Inter, sans-serif;
   animation: fadeIn 2s ease-out forwards;
   text-shadow:0 0 20px #f9f9f9;
 }
@@ -90,17 +86,33 @@ body {
     opacity: 1;
   }
 }
+/* Container of the .buttonList should have at least these styles */
+.btn-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+}
 
-
-
+/* Your existing .buttonList styles */
+.buttonList {
+  margin: 0 auto; /* This will center the div if it has a width set */
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Centers the buttons inside the .buttonList */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px; 
+}
 
 
 button {
   font-family: Arial, Helvetica, sans-serif;
-  margin-top: 20px;
+  margin-left: 7vw;
   padding: 10px 30px;
   border-radius: 25px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(36, 69, 129, 0.2) 50%, rgba(35, 33, 48, 0.5) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.018) 0%, rgba(23, 42, 77, 0.2) 50%, rgba(35, 33, 48, 0.5) 100%);
   border: 1px solid rgba(40, 20, 126, 0.3);
 
   box-shadow: 0 4px 6px rgba(142, 142, 173, 0.11), 0 1px 3px rgba(150, 164, 185, 0.08);
