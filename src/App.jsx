@@ -9,23 +9,24 @@ import { Bio} from './animations/Bio.jsx'
 import { PortfolioLanding } from './animations/PortfolioLanding.jsx';
 import { CameraRotator } from './animations/CameraRotator.jsx';
 import {NameRender} from './animations/NameRender.jsx'
+import FiberglassLoadModel from './FiberglassLoadModel.jsx';
 import './index.css';
 
 
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
 const shuffle = (accent = 0) => [
-  { color: 'black', roughness: 0.1, metalness: 0.5 },
-  { color: 'black', roughness: 0.1, metalness: 0.1 },
-  { color: accents[accent], roughness: 0.1, accent: true },
+  // { color: 'black', roughness: 0.1, metalness: 0.5 },
+  // { color: 'black', roughness: 0.1, metalness: 0.1 },
+  // { color: accents[accent], roughness: 0.1, accent: true },
  
-  { color: 'black', roughness: 0.1 },
-  { color: 'pink', roughness: 0.1 },
-  { color: 'black', roughness: 0.1 },
-    { color: 'black', roughness: 0.1 },
+  // { color: 'black', roughness: 0.1 },
+  // { color: 'pink', roughness: 0.1 },
+  // { color: 'black', roughness: 0.1 },
+  //   { color: 'black', roughness: 0.1 },
 
-  { color: accents[accent], roughness: 0.1, accent: true, transparent: true, opacity: 0.5 },
-  { color: accents[accent], roughness: 0.3, accent: true },
-  { color: accents[accent], roughness: 0.1, accent: true }
+  // { color: accents[accent], roughness: 0.1, accent: true, transparent: true, opacity: 0.5 },
+  // { color: accents[accent], roughness: 0.3, accent: true },
+  // { color: accents[accent], roughness: 0.1, accent: true }
 ];
 
 const rotations = {
@@ -60,24 +61,26 @@ export default function App(props) {
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
         <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio*0.8} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141610']} />
-          {/* <OrbitControls /> */}
+    
           {/* <TextMesh /> */}
           {currentDirection === 'left' && <CanvasRenderedText />}
 
           <Physics /*debug*/ timeStep="vary" gravity={[0, 0, 0]}>
-          
+
             <Pointer />
+            <FiberglassLoadModel/>
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
             ))}
           </Physics>
 
           <Environment resolution={256}>
+  
             <group rotation={[-Math.PI / 3, 0, 1]}>
               <Lightformer form="circle" intensity={100} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={2} />
               <Lightformer form="circle" intensity={2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={2} />
               <Lightformer form="circle" intensity={2} rotation-y={Math.PI / 2} position={[-5, -1, -1]} scale={2} />
-              <Lightformer form="circle" intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={8} />
+              <Lightformer form="circle" intensity={2} rotation-y={-Math.PI / 2} position={[-10, 1, 0]} scale={8} />
               <Lightformer form="ring" color="#fffafa" intensity={80} onUpdate={(self) => self.lookAt(0, 0, 0)} position={[10, 10, 0]} scale={10} />
             </group>
           </Environment>
