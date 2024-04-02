@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React ,{ useRef, useState, useEffect, useReducer, useMemo } from 'react';
 import { Canvas,  useFrame, useThree } from '@react-three/fiber';
-import { Stats, OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
+import { Stats, Center, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
 import { Bio} from './animations/Bio.jsx'
@@ -49,9 +49,10 @@ export default function App(props) {
 
           <Physics /*debug*/ timeStep="vary" gravity={[0, 0, 0]}>
 
-
+            <Center>
             {/* <LoadLandingModel path={'model_asset/belt_model.glb'} scale={[0.02,0.02,0.02]} rotation ={[0,5.0,0]} position={[15,2,2]}/>  */}
-            <LoadLandingModel path={'model_asset/nyc.glb'} position={[0.5,3,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>
+            {currentDirection === 'front' && <LoadLandingModel path={'model_asset/nyc.glb'} position={[0,3,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>}
+            </Center>
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
             ))}
@@ -74,9 +75,10 @@ export default function App(props) {
         </Canvas>
 
 
-
+          <div className='title-container'>
           <div className="title" style={{top:20}}>
-          {currentDirection === 'front' && <NameRender />}
+          {currentDirection === 'front' && <NameRender /> }
+            </div>
             </div>
 
   

@@ -12,6 +12,7 @@ export function NameRender(){
     return(
       <>
       {isVisible && (
+        
       <h1>
        ZELONG LI
       </h1>

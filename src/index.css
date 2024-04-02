@@ -14,18 +14,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.title-container{
+  display: flex; /* Use Flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+
 .title {
   margin-top: 23vh;
-  left: 30%;
+  display: flex;
+  justify-content: center;
   position: absolute;
   font-family: Inter, sans-serif;
 
-  font-size: 80px;
-
-  
-
-
- 
+  font-size: 6vw;
 }
 
 h1{
@@ -93,6 +97,7 @@ body {
   font-family: Inter, sans-serif;
   animation: fadeIn 2s ease-out forwards;
   text-shadow:0 0 10px #f9f9f9;
+  font-size: 2vw;
 
 }
 
@@ -100,6 +105,7 @@ body {
   font-family: Inter, sans-serif;
   animation: fadeIn 2s ease-out forwards;
   text-shadow:0 0 10px #f9f9f9;
+  font-size: 1.4vw;
 }
 
 @keyframes fadeIn {
@@ -130,6 +136,9 @@ body {
   top: 60px; 
 }
 
+button:first-child {
+  margin-left: 0; /* Removes left margin for the first button */
+}
 
 button {
   font-family: Arial, Helvetica, sans-serif;
@@ -156,6 +165,34 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+@media (max-width: 768px) { /* Adjust for tablets and below */
+  .buttonList {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+    width: 80vw; /* Adjust width for smaller screens */
+    margin-top: 60vh;
+  }
+  
+  button {
+ 
+    margin-left: 0; /* Remove left margin for stacked layout */
+    margin-bottom: 2vh; /* Add some space between vertically stacked buttons */
+    width: 100%; /* Make buttons fill the container width */
+  }
+}
+
+@media (max-width: 480px) { /* Adjust for mobile phones */
+  .buttonList {
+    width: 90vw; /* Increase width for very small screens */
+  }
+  
+  button {
+    padding: 3vw 6vw; /* Adjust padding for smaller screens */
+    font-size: calc(1em + 2vw); /* Increase font size slightly for readability */
+  }
+}
+
+
 
 @media (prefers-color-scheme: light) {
   :root {

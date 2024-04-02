@@ -24,7 +24,7 @@ export function PortfolioLanding() {
   
     return (
       <group position={[0, 1, -5]}>
-        {isVisible && ModelData.map((sphere) =>(
+        { ModelData.map((sphere) =>(
           <ClickableSphere
             key={sphere.key}
             position={sphere.position}
