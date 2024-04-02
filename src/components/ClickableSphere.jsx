@@ -2,6 +2,9 @@ import { useSpring, animated } from '@react-spring/three';
 import { useState, Suspense,useEffect, useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
+import { useDispatch } from 'react-redux';
+import { selectSphere } from '../actions';
+
 
 import { Text, OrbitControls } from '@react-three/drei';
 
@@ -39,7 +42,6 @@ function LoadModel({position, modelPath, scale, rotation, shouldRotate, callback
       modelRef.current.position.x = position[0] + Math.cos(time) * 0.1;
     }
   
-
   });
 
   return <primitive object={gltf.scene} ref={modelRef} scale={scale} rotation={rotation} position={position} />;
@@ -50,6 +52,7 @@ function LoadModel({position, modelPath, scale, rotation, shouldRotate, callback
 
 export function ClickableSphere({ position, url, title, scale, modelPath, rotation, callback}) {
   const [hovered, setHovered] = useState(false);
+  const dispatch = useDispatch();
 
 
   const { scaleAfter, color,p } = useSpring({
@@ -59,7 +62,8 @@ export function ClickableSphere({ position, url, title, scale, modelPath, rotati
   });
 
   const handleClick = () => {
-    window.location.href = url;
+    // window.location.href = url;
+    dispatch(selectSphere({ url, title, scale, modelPath, rotation, callback }));
   };
 
     const handlePointerOver = () => {

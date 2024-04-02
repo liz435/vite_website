@@ -4,12 +4,14 @@ import { Canvas,  useFrame, useThree } from '@react-three/fiber';
 import { Stats, Center, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
-import { Bio} from './animations/Bio.jsx'
-import { PortfolioLanding } from './animations/PortfolioLanding.jsx';
-import { CameraRotator } from './animations/CameraRotator.jsx';
-import {NameRender} from './animations/NameRender.jsx'
+import { Bio} from './components/Bio.jsx'
+import { PortfolioLanding } from './components/PortfolioLanding.jsx';
+import { CameraRotator } from './components/CameraRotator.jsx';
+import {NameRender} from './components/NameRender.jsx'
 import LoadLandingModel from './LoadLandingModel.jsx';
+import { ContentComponent } from './ContentComponent.jsx';
 import './index.css';
+import RenderPage from './components/RenderPage.jsx';
 
 
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
@@ -68,7 +70,8 @@ export default function App(props) {
               <Lightformer form="ring" color="#fffafa" intensity={80} onUpdate={(self) => self.lookAt(0, 0, 0)} position={[10, 10, 0]} scale={10} />
             </group>
           </Environment>
-          {currentDirection === 'right' && <PortfolioLanding />}
+          {currentDirection === 'right' && <PortfolioLanding /> }
+
           {isDevMode && <Stats showPanel={0} className="stats" {...props} />}
           <CameraRotator targetRotation={targetRotation} setCurrentRotation={setCurrentRotation} />
 
@@ -78,6 +81,7 @@ export default function App(props) {
           <div className='title-container'>
           <div className="title" style={{top:20}}>
           {currentDirection === 'front' && <NameRender /> }
+          <RenderPage/>
             </div>
             </div>
 
@@ -85,6 +89,7 @@ export default function App(props) {
 
         <div  className="bio-container"  style={{ position: 'absolute', top: 20, left: 20, zIndex: 3,  }}>
           {currentDirection === 'top' && <Bio />}
+          
         </div>
             
           <div className='btn-container'>
