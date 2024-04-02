@@ -5,15 +5,15 @@ import { OrbitControls } from '@react-three/drei';
 import { AnimationMixer } from 'three';
 import * as THREE from 'three';
 
-function Model({ modelUrl }) {
+function Model({ modelUrl, position, scale, callback}) {
   const gltf = useLoader(GLTFLoader, modelUrl);
-  const mixerRef = useRef(); // Use a ref to persist the AnimationMixer instance
+  const mixerRef = useRef(); 
+  const modelRef = useRef ()
 
   useEffect(() => {
     mixerRef.current = new AnimationMixer(gltf.scene);
     
     gltf.animations.forEach((clip) => {
-
       const action = mixerRef.current.clipAction(clip);
       // action.setLoop(THREE.LoopOnce);
       action.clampWhenFinished = true;
@@ -21,17 +21,20 @@ function Model({ modelUrl }) {
     });
   }, [gltf.animations, gltf.scene]);
 
-  // Update the mixer on each frame
+
   useFrame((state, delta) => {
     mixerRef.current?.update(delta);
+
+    if(callback){
+      modelRef.current.rotation.y+=0.01
+    }
   });
 
-  return <primitive object={gltf.scene} scale={[2, 2, 2]} position={[0, 0, 0]} />;
+  return <primitive object={gltf.scene} ref={modelRef}scale={scale} position={position} />;
 }
 
-export default function FiberglassLoadModel() {
-  const [modelUrl, setModelUrl] = useState('model_asset/belt_animated.glb'); // Update this path to your GLTF model
-
+export default function FiberglassLoadModel({path, position, scale, callback}) {
+ 
   const handleModelUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -46,7 +49,7 @@ export default function FiberglassLoadModel() {
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <Suspense fallback={null}>
-          <Model modelUrl={modelUrl} />
+          <Model modelUrl={path} position={position} scale={scale} callback={callback} />
         </Suspense>
 
 

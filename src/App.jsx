@@ -4,7 +4,6 @@ import { Canvas,  useFrame, useThree } from '@react-three/fiber';
 import { Stats, OrbitControls, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
 import { easing } from 'maath';
-import { Effects } from './Effects.jsx';
 import { Bio} from './animations/Bio.jsx'
 import { PortfolioLanding } from './animations/PortfolioLanding.jsx';
 import { CameraRotator } from './animations/CameraRotator.jsx';
@@ -61,14 +60,15 @@ export default function App(props) {
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
         <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio*0.8} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141610']} />
-    
+          {/* <OrbitControls/> */}
           {/* <TextMesh /> */}
           {currentDirection === 'left' && <CanvasRenderedText />}
 
           <Physics /*debug*/ timeStep="vary" gravity={[0, 0, 0]}>
 
             <Pointer />
-            <FiberglassLoadModel/>
+            <FiberglassLoadModel path={'model_asset/belt_animated.glb'} position={[2,2,2]}/>
+            <FiberglassLoadModel path={'model_asset/nyc.glb'} position={[0,0,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
             ))}
@@ -85,8 +85,6 @@ export default function App(props) {
             </group>
           </Environment>
           {currentDirection === 'right' && <PortfolioLanding />}
-
-          <Effects />
           {isDevMode && <Stats showPanel={0} className="stats" {...props} />}
           <CameraRotator targetRotation={targetRotation} setCurrentRotation={setCurrentRotation} />
 
