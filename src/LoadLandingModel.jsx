@@ -44,7 +44,7 @@ function Model({ modelUrl, position, scale, rotation, callback}) {
   return <primitive object={gltf.scene} ref={modelRef} scale={scale} rotation={rotation} position={position} />;
 }
 
-export default function FiberglassLoadModel({path, position, scale, rotation, callback}) {
+export default function LoadLandingModel({path, position, scale, rotation, callback}) {
  
   const handleModelUpload = (event) => {
     const file = event.target.files[0];

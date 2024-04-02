@@ -8,7 +8,7 @@ import { Bio} from './animations/Bio.jsx'
 import { PortfolioLanding } from './animations/PortfolioLanding.jsx';
 import { CameraRotator } from './animations/CameraRotator.jsx';
 import {NameRender} from './animations/NameRender.jsx'
-import FiberglassLoadModel from './FiberglassLoadModel.jsx';
+import LoadLandingModel from './LoadLandingModel.jsx';
 import './index.css';
 
 
@@ -49,9 +49,9 @@ export default function App(props) {
 
           <Physics /*debug*/ timeStep="vary" gravity={[0, 0, 0]}>
 
-            {/* <Pointer />
-            <FiberglassLoadModel path={'model_asset/belt_model.glb'} scale={[0.02,0.02,0.02]} rotation ={[0,5.0,0]} position={[0,2,2]}/> */}
-            <FiberglassLoadModel path={'model_asset/nyc.glb'} position={[0.5,3,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>
+
+            {/* <LoadLandingModel path={'model_asset/belt_model.glb'} scale={[0.02,0.02,0.02]} rotation ={[0,5.0,0]} position={[15,2,2]}/>  */}
+            <LoadLandingModel path={'model_asset/nyc.glb'} position={[0.5,3,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
             ))}

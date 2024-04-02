@@ -51,7 +51,7 @@ border-style:groove;
  /* Blurry glass effect */
  background-clip: text;
  -webkit-background-clip: text;
- backdrop-filter: blur(4px); /* Apply blur to elements behind the object */
+ backdrop-filter: blur(3px); /* Apply blur to elements behind the object */
  -webkit-backdrop-filter: blur(10px); /* For Safari */
  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
  border-radius: 30px; /* Optional: For rounded corners */
