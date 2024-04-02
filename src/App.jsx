@@ -14,18 +14,6 @@ import './index.css';
 
 const accents = ['#ff4060', '#ffcc00', '#20ffa0', '#4060ff'];
 const shuffle = (accent = 0) => [
-  // { color: 'black', roughness: 0.1, metalness: 0.5 },
-  // { color: 'black', roughness: 0.1, metalness: 0.1 },
-  // { color: accents[accent], roughness: 0.1, accent: true },
- 
-  // { color: 'black', roughness: 0.1 },
-  // { color: 'pink', roughness: 0.1 },
-  // { color: 'black', roughness: 0.1 },
-  //   { color: 'black', roughness: 0.1 },
-
-  // { color: accents[accent], roughness: 0.1, accent: true, transparent: true, opacity: 0.5 },
-  // { color: accents[accent], roughness: 0.3, accent: true },
-  // { color: accents[accent], roughness: 0.1, accent: true }
 ];
 
 const rotations = {
@@ -42,13 +30,8 @@ export default function App(props) {
   const [currentRotation, setCurrentRotation] = useState(new THREE.Euler(0, 0, 0));
   const [currentDirection, setCurrentDirection] = useState('front');
 
- 
-  // const handleButtonClick = (rotationKey) => {
-  //   setTargetRotation(rotations[rotationKey]);
-  // }; 
 
   const isDevMode = import.meta.env.DEV
-
   
   const handleButtonClick = (rotationKey) => {
     setTargetRotation(rotations[rotationKey]);
@@ -66,9 +49,9 @@ export default function App(props) {
 
           <Physics /*debug*/ timeStep="vary" gravity={[0, 0, 0]}>
 
-            <Pointer />
-            <FiberglassLoadModel path={'model_asset/belt_animated.glb'} position={[2,2,2]}/>
-            <FiberglassLoadModel path={'model_asset/nyc.glb'} position={[0,0,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>
+            {/* <Pointer />
+            <FiberglassLoadModel path={'model_asset/belt_model.glb'} scale={[0.02,0.02,0.02]} rotation ={[0,5.0,0]} position={[0,2,2]}/> */}
+            <FiberglassLoadModel path={'model_asset/nyc.glb'} position={[0.5,3,0]} scale={[0.1,0.1,0.1]} callback={'yes'}/>
             {connectors.map((props, i) => (
               <Sphere key={i} {...props} />
             ))}
@@ -92,7 +75,7 @@ export default function App(props) {
 
 
 
-          <div className="glow" style={{top:20}}>
+          <div className="title" style={{top:20}}>
           {currentDirection === 'front' && <NameRender />}
             </div>
 

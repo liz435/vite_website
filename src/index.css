@@ -2,6 +2,7 @@
   font-family: Inter, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-style: oblique;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -13,29 +14,52 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.glow {
+.title {
   margin-top: 23vh;
-  margin-left: 23vw;
+  left: 30%;
   position: absolute;
   font-family: Inter, sans-serif;
+
   font-size: 80px;
 
-  /* animation: glow 1s ease-in-out infinite alternate; */
-  font-style: normal;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-  animation: fadeIn 4s ease-out forwards;
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(
-    to right,
-    rgba(227, 223, 223, 0.7), /* Red, 50% opacity */
-    rgba(198, 207, 198, 0.7) /* Green, 50% opacity */
-  );
+  
 
-  border: #313131;
+
+ 
+}
+
+h1{
+ /* animation: glow 1s ease-in-out infinite alternate; */
+ font-style: normal;
+ -webkit-user-select: none; /* Safari */
+ -ms-user-select: none; /* IE 10 and IE 11 */
+ user-select: none; /* Standard syntax */
+ animation: fadeIn 4s ease-out forwards;
+ color: transparent;
+
+ border: rgb(150, 141, 141);
+border-style:groove;
+
+ background-image: linear-gradient(
+   to right,
+   rgb(214, 214, 214), /* Red, 50% opacity */
+   rgb(207, 207, 207) /* Green, 50% opacity */
+ );
+ display: inline-block;
+ white-space: nowrap;
+
+ /* Blurry glass effect */
+ background-clip: text;
+ -webkit-background-clip: text;
+ backdrop-filter: blur(4px); /* Apply blur to elements behind the object */
+ -webkit-backdrop-filter: blur(10px); /* For Safari */
+ background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+ border-radius: 30px; /* Optional: For rounded corners */
+
+ -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 60%, transparent 100%);
+ mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+
+
 }
 
 @-webkit-keyframes glow {
@@ -68,14 +92,14 @@ body {
 .bio-title{
   font-family: Inter, sans-serif;
   animation: fadeIn 2s ease-out forwards;
-  text-shadow:0 0 20px #f9f9f9;
+  text-shadow:0 0 10px #f9f9f9;
 
 }
 
 .bio-p{
   font-family: Inter, sans-serif;
   animation: fadeIn 2s ease-out forwards;
-  text-shadow:0 0 20px #f9f9f9;
+  text-shadow:0 0 10px #f9f9f9;
 }
 
 @keyframes fadeIn {
