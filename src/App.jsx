@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import React ,{ useRef, useState, useEffect, useReducer, useMemo } from 'react';
+import React ,{ useRef, useState, useEffect, useReducer, useMemo, useContext } from 'react';
 import { Canvas,  useFrame, useThree } from '@react-three/fiber';
 import { Stats, Center, Text, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, Physics, RigidBody } from '@react-three/rapier';
@@ -9,6 +9,7 @@ import { PortfolioLanding } from './components/PortfolioLanding.jsx';
 import { CameraRotator } from './components/CameraRotator.jsx';
 import {NameRender} from './components/NameRender.jsx'
 import LoadLandingModel from './LoadLandingModel.jsx';
+import { SphereProvider, SphereContext } from './SphereProvider.jsx';
 import { ContentComponent } from './ContentComponent.jsx';
 import './index.css';
 import RenderPage from './components/RenderPage.jsx';
@@ -33,6 +34,17 @@ export default function App(props) {
   const [currentDirection, setCurrentDirection] = useState('front');
 
 
+  const { currentSphere } = useContext(SphereContext);
+
+  // Respond to changes in currentSphere
+  useEffect(() => {
+    if (currentSphere !== null) {
+      console.log("The current sphere has changed:", currentSphere);
+      // Perform any actions you want in response to the context change here.
+    }
+  }, [currentSphere]); 
+
+
   const isDevMode = import.meta.env.DEV
   
   const handleButtonClick = (rotationKey) => {
@@ -42,6 +54,7 @@ export default function App(props) {
 
   return (
     <>
+    <SphereProvider.Provider>
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
         <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio*0.8} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141610']} />
@@ -104,6 +117,7 @@ export default function App(props) {
       </div>
       <div style={{ position: "absolute", zIndex: "1" }}>
       </div>
+      </SphereProvider.Provider>
     </>
   );
 }

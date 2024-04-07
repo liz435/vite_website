@@ -3,6 +3,7 @@ import React from 'react';
 import '../template.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { hideContent } from '../actions';
+import { useContext } from 'react';
 
 const NavigationComponent = () => {
   const dispatch = useDispatch();

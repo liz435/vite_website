@@ -40,6 +40,8 @@ h1{
  user-select: none; /* Standard syntax */
  animation: fadeIn 4s ease-out forwards;
  color: transparent;
+ padding-left: 2vw;
+ padding-right: 2vw;
 
  border: rgb(150, 141, 141);
 border-style:groove;

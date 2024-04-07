@@ -1,18 +1,15 @@
 import { useSpring, animated } from '@react-spring/three';
-import { useState, Suspense,useEffect, useRef } from 'react';
+import { useState, Suspense,useEffect, useRef, useContext } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import { useDispatch } from 'react-redux';
 import { selectSphere } from '../actions';
-
-
-import { Text, OrbitControls } from '@react-three/drei';
+import { SphereContext } from '../SphereProvider';
 
 import { AnimationMixer } from 'three';
 import * as THREE from 'three';
 
 function LoadModel({position, modelPath, scale, rotation, shouldRotate, callback}){
-  console.log("Loading model at URL:", modelPath)
+  // console.log("Loading model at URL:", modelPath)
   const gltf = useLoader(GLTFLoader, modelPath);
   const mixerRef = useRef(); 
   const modelRef = useRef ();
@@ -35,7 +32,6 @@ function LoadModel({position, modelPath, scale, rotation, shouldRotate, callback
     mixerRef.current?.update(delta);
     const time = clock.getElapsedTime();
 
-
     if(shouldRotate){
       modelRef.current.rotation.y+=0.01
       modelRef.current.position.y = position[1] + Math.sin(time) * 0.2;
@@ -50,9 +46,9 @@ function LoadModel({position, modelPath, scale, rotation, shouldRotate, callback
 }
 
 
-export function ClickableSphere({ position, url, title, scale, modelPath, rotation, callback}) {
+export function ClickableSphere({ position, url, title, scale, modelPath, rotation, content, callback}) {
   const [hovered, setHovered] = useState(false);
-  const dispatch = useDispatch();
+  const { selectSphere } = useContext(SphereContext);
 
 
   const { scaleAfter, color,p } = useSpring({
@@ -63,8 +59,11 @@ export function ClickableSphere({ position, url, title, scale, modelPath, rotati
 
   const handleClick = () => {
     // window.location.href = url;
-    dispatch(selectSphere({ url, title, scale, modelPath, rotation, callback }));
+
+    selectSphere({ url, title, scale, modelPath, rotation, content, callback });
+    // console.log(selectSphere)
   };
+
 
     const handlePointerOver = () => {
     setHovered(true);
@@ -77,14 +76,6 @@ export function ClickableSphere({ position, url, title, scale, modelPath, rotati
   };
 
 
-  const handleModelUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setModelUrl(url);
-    }
-  };
-
 
   return (
     <>
@@ -96,18 +87,6 @@ export function ClickableSphere({ position, url, title, scale, modelPath, rotati
     >
       <Suspense fallback={null}>
           <LoadModel modelPath={modelPath} position={position} scale={scale} rotation={rotation}  shouldRotate={!hovered} callback={callback} />
-
-      {/* {hovered && (
-        <Text
-          position={[0, 1, 0]}
-          fontSize={0.5}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          {title}
-        </Text>
-      )} */}
               </Suspense>
     </animated.mesh>
 
