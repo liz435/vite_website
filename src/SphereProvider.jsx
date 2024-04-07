@@ -9,6 +9,7 @@ export const SphereProvider = ({ children }) => {
   const [currentSphere, setCurrentSphere] = useState(null);
 
   const selectSphere = (sphereData) => {
+    console.log(sphereData)
     setCurrentSphere(sphereData);
   };
 

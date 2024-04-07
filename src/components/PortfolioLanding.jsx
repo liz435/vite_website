@@ -30,6 +30,14 @@ export function PortfolioLanding() {
         rotation :[0,5.0,0],
         content: "somepath2"
       },
+      { position: [6, 1.5, 0],
+        url: "https://example.com/page3",
+        title:"example" ,
+        path:'model_asset/button.glb',
+        key:'M3', scale:[0.7,0.7,0.7],
+        rotation :[1.4,1.4,0],
+        content: "somepath3"
+      },
     ];
   
     return (

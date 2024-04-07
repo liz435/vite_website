@@ -54,7 +54,7 @@ export default function App(props) {
 
   return (
     <>
-    <SphereProvider.Provider>
+    <SphereProvider>
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
         <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio*0.8} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141610']} />
@@ -117,7 +117,7 @@ export default function App(props) {
       </div>
       <div style={{ position: "absolute", zIndex: "1" }}>
       </div>
-      </SphereProvider.Provider>
+      </SphereProvider>
     </>
   );
 }
