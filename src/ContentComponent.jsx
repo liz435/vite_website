@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+
 import RenderPage from './components/RenderPage';
 
 export function ContentComponent() {
