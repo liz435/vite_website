@@ -48,8 +48,8 @@ border-style:groove;
 
  background-image: linear-gradient(
    to right,
-   rgb(214, 214, 214), /* Red, 50% opacity */
-   rgb(207, 207, 207) /* Green, 50% opacity */
+   rgb(214, 214, 214), 
+   rgb(207, 207, 207) 
  );
  display: inline-block;
  white-space: nowrap;
@@ -57,10 +57,10 @@ border-style:groove;
  /* Blurry glass effect */
  background-clip: text;
  -webkit-background-clip: text;
- backdrop-filter: blur(3px); /* Apply blur to elements behind the object */
- -webkit-backdrop-filter: blur(10px); /* For Safari */
- background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
- border-radius: 30px; /* Optional: For rounded corners */
+ backdrop-filter: blur(3px); 
+ -webkit-backdrop-filter: blur(10px); 
+ background-color: rgba(255, 255, 255, 0.5); 
+ border-radius: 30px;
 
  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 60%, transparent 100%);
  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
@@ -118,20 +118,20 @@ body {
     opacity: 1;
   }
 }
-/* Container of the .buttonList should have at least these styles */
+
 .btn-container {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
+  justify-content: center; 
+  align-items: center; 
 }
 
-/* Your existing .buttonList styles */
+
 .buttonList {
-  margin: 0 auto; /* This will center the div if it has a width set */
+  margin: 0 auto;
   width: 60vw;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Centers the buttons inside the .buttonList */
+  justify-content: center;
   position: absolute;
   left: 0;
   right: 0;
@@ -139,7 +139,7 @@ body {
 }
 
 button:first-child {
-  margin-left: 0; /* Removes left margin for the first button */
+  margin-left: 0;
 }
 
 button {
@@ -168,29 +168,29 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (max-width: 768px) { /* Adjust for tablets and below */
+@media (max-width: 768px) { 
   .buttonList {
-    flex-direction: column; /* Stack buttons vertically on smaller screens */
-    width: 80vw; /* Adjust width for smaller screens */
+    flex-direction: column; 
+    width: 80vw; 
     margin-top: 60vh;
   }
   
   button {
  
-    margin-left: 0; /* Remove left margin for stacked layout */
-    margin-bottom: 2vh; /* Add some space between vertically stacked buttons */
-    width: 100%; /* Make buttons fill the container width */
+    margin-left: 0; 
+    margin-bottom: 2vh; 
+    width: 100%; 
   }
 }
 
-@media (max-width: 480px) { /* Adjust for mobile phones */
+@media (max-width: 480px) {
   .buttonList {
-    width: 90vw; /* Increase width for very small screens */
+    width: 90vw; 
   }
   
   button {
-    padding: 3vw 6vw; /* Adjust padding for smaller screens */
-    font-size: calc(1em + 2vw); /* Increase font size slightly for readability */
+    padding: 3vw 6vw;
+    font-size: calc(1em + 2vw);
   }
 }
 
