@@ -94,7 +94,7 @@ export default function App(props) {
           <div className='title-container'>
           <div className="title" style={{top:20}}>
           {currentDirection === 'front' && <NameRender /> }
-          <RenderPage/>
+          {/* <RenderPage/> */}
             </div>
             </div>
 

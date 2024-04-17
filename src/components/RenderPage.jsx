@@ -1,15 +1,13 @@
 // Assuming these imports are correctly set
 import React from 'react';
 import '../template.css';
-import { useSelector, useDispatch } from 'react-redux';
 import { hideContent } from '../actions';
 import { useContext } from 'react';
 
+
 const NavigationComponent = () => {
-  const dispatch = useDispatch();
 
   const handleNavigationClick = () => {
-    dispatch(hideContent());
   };
 
   return (
@@ -20,12 +18,7 @@ const NavigationComponent = () => {
 };
 
 const RenderPage = () => {
-  const isVisible = useSelector(state => state.content.isVisible);
-  const selectedSphereInfo = useSelector(state => state.selectedSphereInfo); // Assuming this comes from your Redux state
 
-  if (!isVisible) {
-    return null;
-  }
 
   return (
     <>
@@ -33,7 +26,6 @@ const RenderPage = () => {
         <div className='container2'>
           <div className='first-col'>
             <div className='title'>
-              {selectedSphereInfo.title}
               <div>
                 bcni2ob2nei2obv2o
               </div>
