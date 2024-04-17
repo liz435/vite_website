@@ -122,8 +122,6 @@ export default function App(props) {
   );
 }
 
-
-
 function CanvasRenderedText(){
 return(
 <>
