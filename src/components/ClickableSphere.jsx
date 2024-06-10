@@ -52,8 +52,7 @@ export function ClickableSphere({ position, url, title, scale, modelPath, rotati
 
 
   const { scaleAfter, color,p } = useSpring({
-    // scaleAfter: hovered ? [3, 3, 3] : [1, 1, 1],
-    // color: hovered ? 'navy' : 'skyblue',
+
     config: { mass: 1, tension: 170, friction: 26 },
   });
 
@@ -61,7 +60,7 @@ export function ClickableSphere({ position, url, title, scale, modelPath, rotati
     // window.location.href = url;
 
     selectSphere({ url, title, scale, modelPath, rotation, content, callback });
-    // console.log(selectSphere)
+
   };
 
 

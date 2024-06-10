@@ -56,7 +56,7 @@ export default function App(props) {
     <>
     <SphereProvider>
       <div style={{ width: "100vw", height: "100vh", position: "relative", zIndex: "0" }}>
-        <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio*0.8} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
+        <Canvas flat shadows onClick={click} dpr={window.devicePixelRatio} gl={{ antialias: false }} camera={{ position: [0, 1, 30], fov: 17.5, near: 10, far: 50 }} {...props}>
           <color attach="background" args={['#141610']} />
           {/* <OrbitControls/> */}
           {/* <TextMesh /> */}
@@ -94,7 +94,7 @@ export default function App(props) {
           <div className='title-container'>
           <div className="title" style={{top:20}}>
           {currentDirection === 'front' && <NameRender /> }
-          {/* <RenderPage/> */}
+   
             </div>
             </div>
 
@@ -146,17 +146,6 @@ return(
   children="longzeely@gmail.com"
 />
 </group>
-
-{/* <group position={[-6, -3, 5]}>
-<Text
-  color="white"
-  anchorX="center"
-  anchorY="middle"
-  fontSize={1}
-  maxWidth={100}
-  children="instagram@longzeely"
-/>
-</group> */}
 </>
 )
 }

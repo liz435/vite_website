@@ -12,7 +12,6 @@ export function PortfolioLanding() {
 
     }, []);
   
-    // Define positions for the spheres and their respective URLs
     const ModelData = [
       { position: [4, 1.5, 0],
         url: "https://example.com/page1",
